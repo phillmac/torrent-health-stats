@@ -172,15 +172,20 @@ function isStaleDHT(torrent) {
 async function run() {
     if(!lockOut) {
         lockOut = true
-
-        const appendTrackers = require('../trackers.json')
+        let appendTrackers = []
+        if (process.env.TRACKERS_FILE) {
+            appendTrackers = require(process.env.TRACKERS_FILE)
+        }
 
         const torrents = {}
         const updates = {}
 
-        for(const t of require('../torrents.json')) {
-            updates[t._id] = t
+        if(process.env.UPDATES_FILE) {
+            for(const t of require(process.env.UPDATES_FILE)) {
+                updates[t._id] = t
+            }
         }
+
 
         try {
             const loaded = (await orbitDbApi.get(dbServer, `db/${dbAddr}/all`)).sort(function (a, b) {
@@ -203,33 +208,35 @@ async function run() {
 
             for (const t of loaded.splice(minTorrents, maxTorents)) {
                 if(isStale(t)) {
-                    try{
-                        if((!(t.name)) || (t.name !== updates[t._id].name)) {
-                            t.name = updates[t._id].name
-                        }
-
-                        if((!(t.link)) || (t.link !== updates[t._id].link)) {
-                            t.link = updates[t._id].link
-                        }
-
-                        if((!(t.size_bytes)) || (t.size_bytes !== updates[t._id].size_bytes)) {
-                            t.size_bytes = updates[t._id].size_bytes
-                        }
-
-                        if(!t.trackers) {
-                            t.trackers = []
-                        }
-
-                        for (const append of appendTrackers) {
-                            if (!(t.trackers.includes(append))) {
-                                t.trackers.push(append)
+                    if(updates[t]) {
+                        try{
+                            if((!(t.name)) || (t.name !== updates[t._id].name)) {
+                                t.name = updates[t._id].name
                             }
-                        }
 
-                        torrents[t._id] = t
-                    } catch(err) {
-                        console.debug(t)
-                        console.error(err)
+                            if((!(t.link)) || (t.link !== updates[t._id].link)) {
+                                t.link = updates[t._id].link
+                            }
+
+                            if((!(t.size_bytes)) || (t.size_bytes !== updates[t._id].size_bytes)) {
+                                t.size_bytes = updates[t._id].size_bytes
+                            }
+
+                            if(!t.trackers) {
+                                t.trackers = []
+                            }
+
+                            for (const append of appendTrackers) {
+                                if (!(t.trackers.includes(append))) {
+                                    t.trackers.push(append)
+                                }
+                            }
+
+                            torrents[t._id] = t
+                        } catch(err) {
+                            console.debug(t)
+                            console.error(err)
+                        }
                     }
                 }
             }
