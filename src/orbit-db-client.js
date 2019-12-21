@@ -9,10 +9,10 @@ const getClient = (url) => {
             delete clients[url]
         }
 
-        // if(clients[url].closed) {
-        //     console.debug('Session closed')
-        //     delete clients[url]
-        // }
+        if(clients[url].closed) {
+            console.debug('Session closed')
+            delete clients[url]
+        }
     }
     if (!(url in clients)) {
         clients[url] = http2.connect(url);
@@ -22,11 +22,11 @@ const getClient = (url) => {
         })
         clients[url].once('error', function () {
             console.debug('error')
-            // delete clients[url]
+            delete clients[url]
         })
         clients[url].once('timeout', function () {
             console.debug('timeout')
-            // delete clients[url]
+            delete clients[url]
         })
     }
     return clients[url];
