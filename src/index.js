@@ -208,7 +208,7 @@ async function run() {
             const spliced = Object.values(loaded).splice(minTorrents, maxTorents)
             console.debug(`Spliced length ${spliced.length}`)
             console.debug(`First: ${spliced[0]._id}`)
-            console.debug(`Last: ${spliced[spliced.length]._id}`)
+            console.debug(`Last: ${spliced[spliced.length -1]._id}`)
             process.exit()
 
             for (const t of spliced) {
