@@ -199,7 +199,7 @@ async function run() {
             })
             console.debug(`Loaded ${Object.keys(loaded).length} torrents`)
 
-            const splitLength = Math.ceil(loaded.length / scraperCount);
+            const splitLength = Math.ceil(Object.keys(loaded).length / scraperCount);
 
             const minTorrents = splitLength * (scraperID - 1)
             const maxTorents = splitLength * scraperID
