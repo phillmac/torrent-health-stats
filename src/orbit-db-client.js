@@ -90,6 +90,7 @@ const post = (url, path, body) => new Promise((resolve, reject) => {
     req.once('end', () => {
         if (rbody === '') {
             reject(new Error('Empty response'))
+            errored = true
         }
         if(!errored) {
             try{
