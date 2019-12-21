@@ -18,7 +18,7 @@ const getClient = (url) => {
         clients[url] = http2.connect(url);
         clients[url].once('goaway', function () {
             console.debug('goaway')
-            // delete clients[url]
+            delete clients[url]
         })
         clients[url].once('error', function () {
             console.debug('error')
