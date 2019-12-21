@@ -52,13 +52,18 @@ const get = (url, path) => new Promise((resolve, reject) => {
     req.once('end', () => {
         if (body === '') {
             reject(new Error('Empty response'))
-        }
-        try{
-            resolve(JSON.parse(body));
-        } catch (err) {
             errored = true
-            console.error(err)
-            reject(err)
+        }
+        if(!errored) {
+            try{
+                resolve(JSON.parse(body));
+            } catch (err) {
+                console.debug(`body: '${body}'`)
+                console.error(err)
+                process.exit()
+            }
+        } else {
+            console.warn('Errored already')
         }
     });
     req.once('error', (err) =>reject(err))
