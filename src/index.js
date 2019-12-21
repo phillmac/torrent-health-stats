@@ -190,10 +190,10 @@ async function run() {
         try {
             const loaded = (await orbitDbApi.get(dbServer, `db/${dbAddr}/all`)).sort(function (a, b) {
             if (a._id > b._id) {
-                return -1;
+                return 1;
             }
             if (b._id > a._id) {
-                return 1;
+                return -1;
             }
             return 0;
             })
