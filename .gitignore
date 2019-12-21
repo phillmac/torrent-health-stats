@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+#Seed files
+torrents.json
+trackers.json
+
+#Debug
+debug.txt
