@@ -205,13 +205,13 @@ async function run() {
             const maxTorents = splitLength * scraperID
 
             console.debug(`Checking torrents ${minTorrents} to ${maxTorents}`)
-            const spliced = Object.values(loaded).splice(minTorrents, maxTorents)
-            console.debug(`Spliced length ${spliced.length}`)
-            console.debug(`First: ${spliced[0]._id}`)
-            console.debug(`Last: ${spliced[spliced.length -1]._id}`)
+            const sliced = Object.values(loaded).slice(minTorrents, maxTorents)
+            console.debug(`Spliced length ${sliced.length}`)
+            console.debug(`First: ${sliced[0]._id}`)
+            console.debug(`Last: ${sliced[sliced.length -1]._id}`)
             process.exit()
 
-            for (const t of spliced) {
+            for (const t of sliced) {
                 if(isStale(t)) {
                     if(updates[t]) {
                         try{
