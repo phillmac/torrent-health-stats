@@ -206,7 +206,7 @@ async function run() {
 
             console.debug(`Checking torrents ${minTorrents} to ${maxTorents}`)
 
-            for (const t of loaded.splice(minTorrents, maxTorents)) {
+            for (const t of Object.values(loaded).splice(minTorrents, maxTorents)) {
                 if(isStale(t)) {
                     if(updates[t]) {
                         try{
