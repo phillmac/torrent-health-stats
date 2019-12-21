@@ -153,7 +153,7 @@ function isStaleTracker(torrent, tracker) {
         return true
     }
 
-    if(torrent.trackerData[tracker].scraped_date +86400 < Math.floor(new Date() / 1000)) {
+    if(torrent.trackerData[tracker].scraped_date +300 < Math.floor(new Date() / 1000)) {
         return true
     }
     return false
@@ -164,7 +164,7 @@ function isStaleDHT(torrent) {
         return true
     }
 
-    if(torrent.dhtData.scraped_date +86400 < Math.floor(new Date() / 1000)) {
+    if(torrent.dhtData.scraped_date +300 < Math.floor(new Date() / 1000)) {
         return true
     }
 }
