@@ -232,12 +232,13 @@ async function run() {
                                 }
                             }
 
-                            torrents[t._id] = t
                         } catch(err) {
                             console.debug(t)
                             console.error(err)
                         }
                     }
+
+                    torrents[t._id] = t
                 }
             }
 
