@@ -217,8 +217,19 @@ async function run() {
 
             for (const t of Object.values(loaded).slice(minTorrents, maxTorents)) {
                 if(isStale(t)) {
-                    if(Object.keys(updates).lenght > 0) {
-                        try{
+                    try{
+                        if(!t.trackers) {
+                            t.trackers = []
+                        }
+
+                        for (const append of appendTrackers) {
+                            if (!(t.trackers.includes(append))) {
+                                t.trackers.push(append)
+                                console.debug(`Added tracker ${append}`)
+                            }
+                        }
+
+                        if(Object.keys(updates).lenght > 0) {
                             if((!(t.name)) || (t.name !== updates[t._id].name)) {
                                 t.name = updates[t._id].name
                             }
@@ -237,24 +248,11 @@ async function run() {
                             if((!t.created_unix) || t.created_unix !== updates[t._id].created_unix) {
                                 t.created_unix = updates[t._id].created_unix
                             }
-
-                            if(!t.trackers) {
-                                console.debug('Empty trackers')
-                                t.trackers = []
-                            }
-
-                            for (const append of appendTrackers) {
-                                if (!(t.trackers.includes(append))) {
-                                    t.trackers.push(append)
-                                    console.debug(`Added tracker ${append}`)
-                                }
-                            }
-
-                        } catch(err) {
-                            console.debug(t)
-                            console.error(err)
-                            process.exit()
                         }
+                    } catch(err) {
+                        console.debug(t)
+                        console.error(err)
+                        process.exit()
                     }
 
                     torrents[t._id] = t
