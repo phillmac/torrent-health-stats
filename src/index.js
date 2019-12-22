@@ -238,6 +238,7 @@ async function run() {
                         } catch(err) {
                             console.debug(t)
                             console.error(err)
+                            process.exit()
                         }
                     }
 
