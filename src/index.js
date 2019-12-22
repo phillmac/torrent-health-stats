@@ -9,12 +9,18 @@ const dbAddr = process.env.ORBIT_DB_ADDR
 const scraperCount = parseInt(process.env.LIBGEN_SCRAPER_COUNT)
 const scraperID = parseInt(process.env.LIBGEN_SCRAPER_ID)
 
+const max_stale = parseint(process.env.MAX_STALE)
+
 if(!dbServer) {
     throw Error('ORBITDB_API_SERVER is required')
 }
 
 if(!dbAddr) {
     throw Error('ORBIT_DB_ADDR is required')
+}
+
+if(!max_stale) {
+    throw Error('MAX_STALE is required')
 }
 
 if(isNaN(scraperCount)) {
@@ -153,7 +159,7 @@ function isStaleTracker(torrent, tracker) {
         return true
     }
 
-    if(torrent.trackerData[tracker].scraped_date +300 < Math.floor(new Date() / 1000)) {
+    if(torrent.trackerData[tracker].scraped_date + parseint(process.env.MAX_STALE) < Math.floor(new Date() / 1000)) {
         return true
     }
     return false
@@ -164,7 +170,7 @@ function isStaleDHT(torrent) {
         return true
     }
 
-    if(torrent.dhtData.scraped_date +300 < Math.floor(new Date() / 1000)) {
+    if(torrent.dhtData.scraped_date + parseint(process.env.MAX_STALE) < Math.floor(new Date() / 1000)) {
         return true
     }
 }
