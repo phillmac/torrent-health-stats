@@ -208,18 +208,21 @@ async function run() {
 
             for (const t of Object.values(loaded).slice(minTorrents, maxTorents)) {
                 if(isStale(t)) {
-                    if(updates[t]) {
+                    if(Object.keys(updates).lenght > 0) {
                         try{
                             if((!(t.name)) || (t.name !== updates[t._id].name)) {
                                 t.name = updates[t._id].name
                             }
 
-                            if((!(t.link)) || (t.link !== updates[t._id].link)) {
+                            if((!t.link) || (t.link !== updates[t._id].link)) {
                                 t.link = updates[t._id].link
                             }
 
-                            if((!(t.size_bytes)) || (t.size_bytes !== updates[t._id].size_bytes)) {
+                            if((!t.size_bytes) || (t.size_bytes !== updates[t._id].size_bytes)) {
                                 t.size_bytes = updates[t._id].size_bytes
+                            }
+                            if((!t.created_unix) || t.created_unix !== updates[t._id].created_unix) {
+                                t.created_unix = updates[t._id].created_unix
                             }
 
                             if(!t.trackers) {
