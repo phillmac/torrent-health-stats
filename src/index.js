@@ -216,11 +216,12 @@ async function run() {
             console.debug(`Checking torrents ${minTorrents} to ${maxTorents}`)
 
             for (const t of Object.values(loaded).slice(minTorrents, maxTorents)) {
+                if(!t.trackers) {
+                    t.trackers = []
+                }
+
                 if(isStale(t)) {
                     try{
-                        if(!t.trackers) {
-                            t.trackers = []
-                        }
 
                         for (const append of appendTrackers) {
                             if (!(t.trackers.includes(append))) {
