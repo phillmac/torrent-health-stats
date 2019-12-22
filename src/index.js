@@ -218,6 +218,10 @@ async function run() {
                                 t.link = updates[t._id].link
                             }
 
+                            if((!t.type) || (t.type !== updates[t._id].type)) {
+                                t.type = updates[t._id].type
+                            }
+
                             if((!t.size_bytes) || (t.size_bytes !== updates[t._id].size_bytes)) {
                                 t.size_bytes = updates[t._id].size_bytes
                             }
