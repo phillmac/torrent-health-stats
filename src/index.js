@@ -31,7 +31,7 @@ if(isNaN(scraperID)) {
     throw new Error('LIBGEN_SCRAPER_ID is required')
 }
 
-console.info({scraperCount, scraperID})
+console.info({scraperCount, scraperID, max_stale})
 
 orbitDbApi.post(dbServer, 'db/' + dbAddr, {awaitOpen: false})
 
