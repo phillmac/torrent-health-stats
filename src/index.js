@@ -229,7 +229,7 @@ async function run() {
                             }
                         }
 
-                        if(Object.keys(updates).lenght > 0) {
+                        if(Object.keys(updates).length > 0) {
                             if((!(t.name)) || (t.name !== updates[t._id].name)) {
                                 t.name = updates[t._id].name
                             }
