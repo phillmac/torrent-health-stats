@@ -257,6 +257,7 @@ async function run() {
                     }
 
                     torrents[t._id] = t
+                    console.debug(t)
                 }
             }
 
