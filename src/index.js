@@ -9,7 +9,7 @@ const dbAddr = process.env.ORBIT_DB_ADDR
 const scraperCount = parseInt(process.env.LIBGEN_SCRAPER_COUNT)
 const scraperID = parseInt(process.env.LIBGEN_SCRAPER_ID)
 
-const max_stale = parseint(process.env.MAX_STALE)
+const max_stale = parseInt(process.env.MAX_STALE)
 
 if(!dbServer) {
     throw Error('ORBITDB_API_SERVER is required')
