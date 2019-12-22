@@ -246,6 +246,7 @@ async function run() {
                             for (const append of appendTrackers) {
                                 if (!(t.trackers.includes(append))) {
                                     t.trackers.push(append)
+                                    console.debug(`Added tracker ${append}`)
                                 }
                             }
 
