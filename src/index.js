@@ -193,7 +193,7 @@ async function run() {
             for(const t of require(process.env.UPDATES_FILE)) {
                 updates[t._id] = t
             }
-            console.debug(`Loaded ${object.keys(updates).length} updates`)
+            console.debug(`Loaded ${Object.keys(updates).length} updates`)
         }
 
 
