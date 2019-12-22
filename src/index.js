@@ -132,7 +132,6 @@ function scrape(infoHash, announce) {
 function isStale(torrent) {
     if((!torrent.trackers) || torrent.trackers.length == 0) {
         console.warn(`${torrent._id} has no trackers`)
-        return true
     }
 
     if(!(torrent.trackerData)){
