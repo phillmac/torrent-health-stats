@@ -239,6 +239,7 @@ async function run() {
                             }
 
                             if(!t.trackers) {
+                                console.debug('Empty trackers')
                                 t.trackers = []
                             }
 
