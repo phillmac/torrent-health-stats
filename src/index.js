@@ -182,6 +182,8 @@ async function run() {
         let appendTrackers = []
         if (process.env.TRACKERS_FILE) {
             appendTrackers = require(process.env.TRACKERS_FILE)
+            console.debug(`Loaded ${appendTrackers.length} trackers`)
+
         }
 
         const torrents = {}
@@ -191,6 +193,7 @@ async function run() {
             for(const t of require(process.env.UPDATES_FILE)) {
                 updates[t._id] = t
             }
+            console.debug(`Loaded ${object.keys(updates).length} updates`)
         }
 
 
