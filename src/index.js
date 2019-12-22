@@ -159,7 +159,7 @@ function isStaleTracker(torrent, tracker) {
         return true
     }
 
-    if(torrent.trackerData[tracker].scraped_date + parseint(process.env.MAX_STALE) < Math.floor(new Date() / 1000)) {
+    if(torrent.trackerData[tracker].scraped_date + max_stale < Math.floor(new Date() / 1000)) {
         return true
     }
     return false
@@ -170,7 +170,7 @@ function isStaleDHT(torrent) {
         return true
     }
 
-    if(torrent.dhtData.scraped_date + parseint(process.env.MAX_STALE) < Math.floor(new Date() / 1000)) {
+    if(torrent.dhtData.scraped_date + max_stale < Math.floor(new Date() / 1000)) {
         return true
     }
 }
